@@ -1,30 +1,30 @@
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 import java.util.TreeMap;
 public class LongestIncreasingSubsequence {
 
-	int[] numbers = {
-	        1,4,5,6,9,25,36,38,39,42,45,46,49,68,98,99,
-	        16,78,
-	        18,19,20,21,22,23,24,25,26,27,28,
-	        2,
-	        1,
-	        50,51,52,53,54,58,62,69,85,99,
-	        18
-	    };
 
-	    public Integer[] getLongestIncreasingSubsequence() {
+	    public Integer[] getLongestIncreasingSubsequence(int numOfNums) {
 
+	    	int[] numbers = new int[numOfNums];
+	    	
+	    	//generate our random numbers
+	    	Random rand = new Random();
+	    	for(int x=0; x<numOfNums-1; x++) {
+	    		numbers[x] = rand.nextInt(100);
+	    	}
+	    	
 	        // Sequences we find
 	        List<Integer[]> sequences = new ArrayList<>();
 
 	        Stack<Integer> entries = new Stack<>();
 
-	        for (int r = 0; r < this.numbers.length; r++) {
+	        for (int r = 0; r < numbers.length; r++) {
 	        	
-	            Integer entry = this.numbers[r];
+	            Integer entry = numbers[r];
 	            if (entries.empty()) {
 	                entries.push(entry);
 	                continue;
@@ -41,7 +41,7 @@ public class LongestIncreasingSubsequence {
 	            // if the number is decreasing
 	            // or if we are at the end
 	                // then capture the sequence
-	            boolean atTheEnd = (r == this.numbers.length - 1);
+	            boolean atTheEnd = (r == numbers.length - 1);
 	            if (previous >= entry || atTheEnd) {
 
 	                // Capture the sequence we found
